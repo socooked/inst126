@@ -9,19 +9,25 @@ def erase_screen(): #easier to read code if u clear the screen
        os.system('cls' if os.name == 'nt' else 'clear') 
     
 def letter_count(word, letter):
-    count = 0 
-    for char in word: 
-         if char == letter:
-              count += 1
-              return count
+    count = word.count(letter)
+    # count = 0 
+    # for char in word: 
+    #      if char == letter:
+    #           count += 1
+    return count
+letter_count("action", "o")
 
+
+erase_screen()
 class start_game():    
     word = word_selection()
+    print(f"the word this time is {word}")
     guessed_letters = []
     word_guesses = 0 
     letter_guesses = 0
     max_guesses = 3
 
+   
 
     while True:        
             display = ""
@@ -37,14 +43,15 @@ class start_game():
 
             guess = input ("For the people who want to win, you may guess a letter. You can guess the entire word as well, although you only get three word guesses. Choose wisely.").lower()
 
-            if (guess.isalpha() and len(guess) == 1) or (guess.isalpha() and len(guess) == len(word)):
+            if (guess.isalpha() and len(guess) == 1): # or (guess.isalpha() and len(guess) == len(word)):
                 letter_guesses += 1
                 if guess in guessed_letters:
                     print("Already used that letter dummy.")
                 else:
                     guessed_letters.append(guess)
-                    occurences = letter_count(word, guess)
-                print("{} is seen in this word {} times.".format(occurences,guess))
+                    print(f"char is {char} and guess is {guess}")
+                    occurences = letter_count(char, guess)
+                print(f"{guess} is seen in this word {occurences} times.")
                 if set(guessed_letters) == set(word):
                         print("wow...you won. Only took {} tries...".format(letter_guesses))
                         break
@@ -61,6 +68,4 @@ class start_game():
             if word_guesses == 3:
                 print("Ya lost twin. Outta guesses...")
                 break
-     
-if __name__ == "__main__":
-    start_game
+
