@@ -2,70 +2,58 @@ import os
 import random
 
 def word_selection():
-        word_bank = ["horror", "romance", "action", "comedy"]
-        return random.choice(word_bank)
+    word_bank = ["horror", "romance", "action", "comedy"]
+    return random.choice(word_bank)
 
-def erase_screen(): #easier to read code if u clear the screen
-       os.system('cls' if os.name == 'nt' else 'clear') 
-    
+def erase_screen():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 def letter_count(word, letter):
     count = word.count(letter)
-    # count = 0 
-    # for char in word: 
-    #      if char == letter:
-    #           count += 1
     return count
-letter_count("action", "o")
 
+erase_screen() 
+print("Welcome to Bryant's Word Guessing Game, this is a single-player game. The theme of this word is movie genres.")
+print("For the people who want to win, you may guess a letter. You can guess the entire word as well, although you only get three word guesses.")
 
-erase_screen()
-class start_game():    
-    word = word_selection()
-    print(f"the word this time is {word}")
-    guessed_letters = []
-    word_guesses = 0 
-    letter_guesses = 0
-    max_guesses = 3
+word = word_selection()
+print(f"The word this time is {word}")
+guessed_letters = []
+word_guesses = 0 
+letter_guesses = 0
+max_guesses = 3
 
-   
+while True:        
+    display = ""
+    for char in word:
+        if char in guessed_letters:
+            display += char
+        else:
+            display += "_"
+    print("Guesses:", ", ".join(guessed_letters))
+    print("Word guesses left:", max_guesses - word_guesses)
+    guess = input("Choose wisely: ").lower()
+    occurences = letter_count(word, guess)
+    print(f"{guess} is seen in this word {occurences} times.")
+    
+    if (guess.isalpha() and len(guess) == 1) or (guess.isalpha() and len(guess) == len(word)):
+        letter_guesses += 1
+        if guess in guessed_letters:
+            print("Already used that letter.")
+        else:
+            guessed_letters.append(guess)
+    if guess == word:
+        word_guesses += 1
+        print("Congratulations! You guessed the word correctly.")
+        break
+    else:
+        print("Invalid guess. Please enter a single letter or a word.")
 
-    while True:        
-            display = ""
-            for char in word:
-                if char in guessed_letters:
-                    display += char
-            else:
-                    display += ""
-                    
-            print(f"Welcome to Bryant's Word Guessing Game, this is a single-player game. The theme of this word is movie genres.")
-            print("Guessed letters:", ", ".join(guessed_letters))
-            print ("Word guesses left:", max_guesses - word_guesses)
+    if set(guessed_letters) == set(word):
+        print("Congratulations! You guessed all the letters. The word was: '{}'.".format(word))
+        break
 
-            guess = input ("For the people who want to win, you may guess a letter. You can guess the entire word as well, although you only get three word guesses. Choose wisely.").lower()
-
-            if (guess.isalpha() and len(guess) == 1): # or (guess.isalpha() and len(guess) == len(word)):
-                letter_guesses += 1
-                if guess in guessed_letters:
-                    print("Already used that letter dummy.")
-                else:
-                    guessed_letters.append(guess)
-                    print(f"char is {char} and guess is {guess}")
-                    occurences = letter_count(char, guess)
-                print(f"{guess} is seen in this word {occurences} times.")
-                if set(guessed_letters) == set(word):
-                        print("wow...you won. Only took {} tries...".format(letter_guesses))
-                        break
-            else:
-                print("Nah yo. Input only a word or singular letter.")
-
-            if len(guess) == len(word) and guess.isalpha():
-                word_guesses += 1
-                if guess == word:
-                    print("Nice,only took {} tries to guess the word.".format(letter_guesses))
-                    break        
-            else:
-                print("Wrong word dummy.")
-            if word_guesses == 3:
-                print("Ya lost twin. Outta guesses...")
-                break
-
+    word_guesses += 1
+    if word_guesses >= max_guesses:
+        print("You've reached the maximum number of word guesses. The word was: '{}'.".format(word))
+        break
