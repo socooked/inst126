@@ -3,4 +3,5 @@
 - 3 total chances to guess the word; lists letters
 - Single player game. 
 - The game does NOT tell the player the position of letters in the word.
-- 
+- A player’s final score is the number of turns (letter guesses) they made before guessing the correct
+word. Lower scores are better.
