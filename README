@@ -1,0 +1,6 @@
+- Simple word guessing game, the theme is movie genres.
+- 4 total genres to guess from: horror, romance, action, comedy
+- 3 total chances to guess the word; lists letters
+- Single player game. 
+- The game does NOT tell the player the position of letters in the word.
+- 

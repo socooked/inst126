@@ -1,7 +1,7 @@
 import os
 import random
 
-def word_selection():
+def word_selection(): # random word selection
     word_bank = ["horror", "romance", "action", "comedy"]
     return random.choice(word_bank)
 
@@ -38,11 +38,11 @@ while True:
     
     if (guess.isalpha() and len(guess) == 1) or (guess.isalpha() and len(guess) == len(word)):
         letter_guesses += 1
-        if guess in guessed_letters:
+        if guess in guessed_letters:  # error troubleshooting
             print("Already used that letter.")
         else:
             guessed_letters.append(guess)
-    if guess == word:
+    if guess == word: # winning answer
         word_guesses += 1
         print("Congratulations! You guessed the word correctly.")
         break
@@ -53,7 +53,7 @@ while True:
         print("Congratulations! You guessed all the letters. The word was: '{}'.".format(word))
         break
 
-    word_guesses += 1
+    word_guesses += 1 #word guess counter
     if word_guesses >= max_guesses:
         print("You've reached the maximum number of word guesses. The word was: '{}'.".format(word))
         break
